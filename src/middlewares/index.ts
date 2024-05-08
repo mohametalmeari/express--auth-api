@@ -3,6 +3,33 @@ import { get, merge } from "lodash";
 
 import { getUserBySessionToken } from "../db/users";
 
+export const isOwner = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const currentUserId = get(req, "identity._id") as string;
+
+    // Check if the user is authenticated
+    if (!currentUserId) {
+      return res.sendStatus(403);
+    }
+
+    // Check if the user is authorized (owner of the resource)
+    if (currentUserId.toString() !== id) {
+      return res.sendStatus(403);
+    }
+
+    // Continue to users controller
+    return next();
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(400);
+  }
+};
+
 export const isAuthenticated = async (
   req: Request,
   res: Response,
