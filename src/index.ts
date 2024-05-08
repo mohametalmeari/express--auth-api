@@ -4,8 +4,12 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
+import * as dotenv from "dotenv";
+import mongoose from "mongoose";
 
 const app = express();
+
+dotenv.config();
 
 app.use(cors({ credentials: true }));
 app.use(compression());
@@ -16,3 +20,7 @@ const server = http.createServer(app);
 server.listen(8080, () => {
   console.log("Server is running on http://localhost:8080/");
 });
+
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGO_URL);
+mongoose.connection.on("error", (error: Error) => console.log(error));
