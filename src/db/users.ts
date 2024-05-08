@@ -13,7 +13,7 @@ const UserSchema = new mongoose.Schema({
 const UserModel = mongoose.model("User", UserSchema);
 
 // Actions
-const gerUsers = () => UserModel.find();
+const getUsers = () => UserModel.find();
 const getUserByEmail = (email: string) => UserModel.findOne({ email });
 const getUserBySessionToken = (sessionToken: string) =>
   UserModel.findOne({ "authentication.sessionToken": sessionToken });
@@ -26,7 +26,7 @@ const updateUserById = (id: string, values: Record<string, any>) =>
 
 export {
   UserModel,
-  gerUsers,
+  getUsers,
   getUserByEmail,
   getUserBySessionToken,
   getUserById,
