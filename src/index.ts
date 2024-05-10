@@ -18,10 +18,12 @@ app.use(compression());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 3000;
+
 const server = http.createServer(app);
-server.listen(8080, () => {
+server.listen(port, () => {
   if (process.env.NODE_ENV === "development") {
-    console.log("Server is running on http://localhost:8080/");
+    console.log(`Server is running on http://localhost:${port}/`);
   }
 });
 
