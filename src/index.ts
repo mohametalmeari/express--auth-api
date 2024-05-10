@@ -20,7 +20,9 @@ app.use(bodyParser.json());
 
 const server = http.createServer(app);
 server.listen(8080, () => {
-  console.log("Server is running on http://localhost:8080/");
+  if (process.env.NODE_ENV === "development") {
+    console.log("Server is running on http://localhost:8080/");
+  }
 });
 
 mongoose.Promise = Promise;

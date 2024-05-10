@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
+import * as dotenv from "dotenv";
 
 import { createUser, getUserByEmail } from "../db/users";
 import { authentication, random } from "../helpers";
+
+dotenv.config();
+
+const host = process.env.HOST;
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -38,7 +43,7 @@ export const login = async (req: Request, res: Response) => {
 
     // Send session token as cookie
     res.cookie("AUTH", user.authentication.sessionToken, {
-      domain: "localhost",
+      domain: host,
       path: "/",
     });
 
@@ -89,7 +94,7 @@ export const register = async (req: Request, res: Response) => {
 
     // - Send session token as cookie
     res.cookie("AUTH", user.authentication.sessionToken, {
-      domain: "localhost",
+      domain: host,
       path: "/",
     });
 
